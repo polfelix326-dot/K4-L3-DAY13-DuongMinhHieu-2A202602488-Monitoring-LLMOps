@@ -8,7 +8,7 @@
 - **MSSV:** 2A202602488
 - **Lớp:** K4-L3A
 - **Repository URL:** https://github.com/polfelix326-dot/K4-L3-DAY13-DuongMinhHieu-2A202602488-Monitoring-LLMOps
-- **Commit SHA cuối:** `a20244a30868feec647968800777bce3dfc25f70`
+- **Commit SHA cuối:** `dbce117e58db1c1d79290b8fb0d0ea7f9fbacf0b`
 - **Challenge ID:** day13-k4-l3a-monitoring-llmops-v1
 - **Tên project Langfuse cá nhân:** `day13-k4-l3a-2A202602488`
 
@@ -18,7 +18,7 @@
 
 | Evidence | Đường dẫn |
 |---|---|
-| Pytest cuối | `evidence/01-pytest.png` |
+| Pytest cuối | `evidence/01-pytest.txt` |
 | Log validator | `evidence/02-log-validator.png` |
 | Dashboard validator | `evidence/03-dashboard-validator.png` |
 | Structured log | `evidence/04-structured-log.png` |
@@ -96,6 +96,10 @@ cf7efc3897ec599a4605b2629ddaf59e
   - Chạy `python scripts/validate_logs.py` đạt 100/100 (0 missing required fields, 0 missing context, 0 PII leak).
   - Chạy bộ unit tests `pytest tests/test_pii.py` và `pytest tests/test_chat_observability.py` pass 100%.
 
+![Log validator](evidence/02-log-validator.png)
+![Structured log](evidence/04-structured-log.png)
+![PII redaction](evidence/05-pii-redaction.png)
+
 ## 5. Tracing và prompt versioning
 
 - **Cách xác nhận traces do chính tôi tạo trong project cá nhân:**
@@ -120,6 +124,12 @@ cf7efc3897ec599a4605b2629ddaf59e
   - Promote: Sử dụng SDK/Client chuyển label `production` sang trỏ vào prompt version 3.
   - Rollback: Khi phát hiện candidate không đạt hoặc cần quay về phiên bản ổn định, cập nhật lại label `production` trỏ về version 1.
 
+![Trace list](evidence/06-trace-list.png)
+![Trace waterfall](evidence/07-trace-waterfall.png)
+![Trace metadata](evidence/08-trace-metadata.png)
+![Prompt versions](evidence/09-prompt-versions.png)
+![Prompt rollback](evidence/10-prompt-rollback.png)
+
 ## 6. Dashboard, SLO và alerts
 
 - **Dashboard và sáu panel:**
@@ -141,6 +151,9 @@ cf7efc3897ec599a4605b2629ddaf59e
   - 1. `HighErrorRate` (Severity: `critical`, Window: `5m`): Kích hoạt khi Error Rate > 2%. Runbook: Kiểm tra log `request_failed`, xem error_type (500/timeout/LLM API), kiểm tra trạng thái downstream service.
   - 2. `HighLatencyP95` (Severity: `warning`, Window: `5m`): Kích hoạt khi P95 > 3000ms. Runbook: Truy vấn Trace Waterfall trên Langfuse, so sánh latency của `retrieval` và `fake-llm-generation` để khoanh vùng nút thắt cổ chai.
   - 3. `DegradedRetrieval` (Severity: `warning`, Window: `10m`): Kích hoạt khi Retrieval Success < 90%. Runbook: Kiểm tra Vector DB connectivity, quyền truy cập knowledge store, phục hồi fallback tài liệu tĩnh.
+
+![Dashboard validator](evidence/03-dashboard-validator.png)
+![Dashboard runtime](evidence/11-dashboard-overview.png)
 
 ## 7. Điều tra challenge
 
@@ -167,6 +180,10 @@ cf7efc3897ec599a4605b2629ddaf59e
 - **Preventive measure:**
   - Thiết lập alert giám sát riêng cho Span Retrieval (`retrieval_latency_p95 > 1500ms`).
   - Bổ sung Circuit Breaker và cơ chế Fallback (dùng pre-cached summary hoặc general LLM knowledge) khi Vector Store bị chậm/degraded để tránh làm sập SLO của toàn bộ hệ thống.
+
+![Incident metric](evidence/12-incident-metric.png)
+![Incident log](evidence/13-incident-log.png)
+![Incident trace](evidence/14-incident-trace.png)
 
 ## 8. Giải thích và tự đánh giá
 

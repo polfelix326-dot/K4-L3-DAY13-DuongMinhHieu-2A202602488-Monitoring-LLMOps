@@ -8,7 +8,7 @@
 - **MSSV:** 2A202602488
 - **Lớp:** K4-L3A
 - **Repository URL:** https://github.com/polfelix326-dot/K4-L3-DAY13-DuongMinhHieu-2A202602488-Monitoring-LLMOps
-- **Commit SHA cuối:** `dbce117e58db1c1d79290b8fb0d0ea7f9fbacf0b`
+- **Commit SHA cuối:** `a40c270234ce23aa228e93a0276e3d3b659b6cae`
 - **Challenge ID:** day13-k4-l3a-monitoring-llmops-v1
 - **Tên project Langfuse cá nhân:** `day13-k4-l3a-2A202602488`
 
